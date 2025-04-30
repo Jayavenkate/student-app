@@ -48,6 +48,7 @@ import ActiveUsers from "../users/ActiveUsers";
 import AllTaskAdmin from "./AllTaskAdmin";
 import CompletedTaskUsers from "./CompletedTaskUsers";
 import { Box } from "@mui/material";
+import { getusers } from "@/redux/Users/actionCreator";
 
 export default function AdminDashboard() {
   const dispatch = useDispatch();
@@ -55,6 +56,9 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     dispatch(getTasks());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getusers());
   }, [dispatch]);
 
   // Render component based on selected menu

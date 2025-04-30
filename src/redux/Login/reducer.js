@@ -43,6 +43,7 @@ const LoginReducer = (state = initState, action) => {
         loading: false,
         username: "",
         userId: "",
+        token: "",
       };
     case LOGIN_ERR:
       // console.log(LOGIN_ERR, action.payload);
@@ -51,6 +52,13 @@ const LoginReducer = (state = initState, action) => {
         error: action.payload,
         loading: false,
       };
+
+    case "CLEAR_LOGIN_ERROR":
+      return {
+        ...state,
+        error: null,
+      };
+
     default:
       return state;
   }

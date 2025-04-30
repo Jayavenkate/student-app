@@ -104,10 +104,20 @@ export default function AllTaskAdmin() {
     });
   };
 
-  const handleUpdateSubmit = () => {
-    if (editItem) {
-      dispatch(updateTasks({ id: editItem.id, ...formData }));
-      handleEditClose();
+  // const handleUpdateSubmit = async () => {
+  //   if (editItem) {
+  //     await dispatch(updateTasks({ id: editItem.id, ...formData }));
+  //     handleEditClose();
+  //   }
+  // };
+  const handleUpdateSubmit = async () => {
+    try {
+      if (editItem) {
+        await dispatch(updateTasks({ id: editItem.id, ...formData }));
+        handleEditClose();
+      }
+    } catch (error) {
+      // console.error("Failed to update task:", error);
     }
   };
 
@@ -369,6 +379,10 @@ export default function AllTaskAdmin() {
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
                 <strong>Question:</strong> {selectedQuestion.question}
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom color="success">
+                <strong>Correct Answer:</strong>{" "}
+                {selectedQuestion.correctAnswer}
               </Typography>
               <Typography variant="subtitle2" gutterBottom>
                 <strong>Options:</strong>

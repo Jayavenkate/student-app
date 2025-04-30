@@ -15,6 +15,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Switch from "@mui/material/Switch";
 import { Heading, HeadingAllPage } from "./User.styled";
+import { StyledTableRow } from "../dashboard/AdminDashboard.styled";
 
 export default function UserDetails() {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export default function UserDetails() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users?.length > 0 &&
+            {users?.length > 0 ? (
               users.map((row) => (
                 <TableRow
                   key={row.id}
@@ -64,7 +65,14 @@ export default function UserDetails() {
                     <span>{row.status ? "Active" : "InActive"}</span>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))
+            ) : (
+              <StyledTableRow>
+                <TableCell colSpan={5} align="center">
+                  No users available
+                </TableCell>
+              </StyledTableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

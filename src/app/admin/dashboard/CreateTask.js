@@ -24,40 +24,7 @@ import Paper from "@mui/material/Paper";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import { Heading, HeadingAllPage } from "../users/User.styled";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#43a047",
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 const CreateTask = () => {
-  const [isFormVisible, setIsFormVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [question, setQuestion] = useState("");
@@ -86,7 +53,7 @@ const CreateTask = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const taskData = {
@@ -97,8 +64,21 @@ const CreateTask = () => {
       ...answers,
     };
 
-    // Dispatch action to create task
-    dispatch(postTask(taskData));
+    try {
+      await dispatch(postTask(taskData));
+      setTitle("");
+      setDescription("");
+      setQuestion("");
+      setCorrectAnswer("");
+      setAnswers({
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+      });
+    } catch (error) {
+      // console.error("Assistance failed:", error);
+    }
   };
 
   return (
